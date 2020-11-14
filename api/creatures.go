@@ -29,6 +29,10 @@ type match struct {
 func (cs creatures) search(query string, n int, s float64) creatures {
   ts := tokeniseQuery(query)
 
+  if len(ts) == 0 {
+    return nil
+  }
+
   var m int
   var nameMatches creatures
   var tagMatches []match
