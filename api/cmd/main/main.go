@@ -3,6 +3,7 @@ package main
 import (
   "context"
   "github.com/mrlaurence/Tech-Support-Gurus-Oxford-Hack-2020/api"
+  "math/rand"
   "os"
   "os/signal"
   "syscall"
@@ -10,6 +11,8 @@ import (
 )
 
 func main() {
+  rand.Seed(time.Now().Unix())
+
   interrupt := make(chan os.Signal, 1)
   signal.Notify(interrupt, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
   defer signal.Stop(interrupt)
