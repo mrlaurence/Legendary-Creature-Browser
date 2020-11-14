@@ -2,8 +2,9 @@
 
 ### /search
 - Method: GET
-- Query format: `/search?n=123&q=shrek%20and%20donkey`
+- Query format: `/search?n=123&q=shrek%20and%20donkey&s=50`
   - `n`: the upper limit on search results
+  - `s`: the matching sensitivity as a percentage
   - `q`: the search query (query escaped)
 
 ### /random
