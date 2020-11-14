@@ -1,6 +1,9 @@
 package api
 
-import "sort"
+import (
+  "math/rand"
+  "sort"
+)
 
 type creaturesModel map[string]creatureModel
 
@@ -62,6 +65,23 @@ func readCreatures(path string) (creatures, error) {
 type match struct {
   c     creature
   score float64
+}
+
+func (cs creatures) rand(n int) creatures {
+  l := len(cs)
+  if n >= l {
+    return cs
+  } else if n == 0 {
+    return nil
+  }
+  rs := make(creatures, n)
+  for i := 0; i < n; i++ {
+    j := rand.Intn(l)
+    rs[i] = cs[j]
+    cs[j] = cs[l-1]
+    l--
+  }
+  return rs
 }
 
 func (cs creatures) search(query string, n int, s float64) creatures {

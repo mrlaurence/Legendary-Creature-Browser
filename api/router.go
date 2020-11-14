@@ -2,7 +2,6 @@ package api
 
 import (
   "encoding/json"
-  "fmt"
   "github.com/go-chi/chi"
   "github.com/go-chi/chi/middleware"
   "github.com/go-chi/cors"
@@ -57,7 +56,8 @@ func mwCreatures(path string, f creaturesAPIFunc) http.HandlerFunc {
 }
 
 func randomAPI(w http.ResponseWriter, r *http.Request, c creatures, n int, vs url.Values) {
-  if _, err := fmt.Fprintf(w, "do i look like i'm implemented yet"); err != nil {
+  res := c.rand(n).toModel()
+  if err := json.NewEncoder(w).Encode(res); err != nil {
     panic(err)
   }
 }
