@@ -69,9 +69,10 @@ type match struct {
 
 func (cs creatures) rand(n int) creatures {
   l := len(cs)
-  if n >= l {
-    return cs
-  } else if n == 0 {
+  if n > l {
+    n = l
+  }
+  if n == 0 {
     return nil
   }
   rs := make(creatures, n)
