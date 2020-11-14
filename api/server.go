@@ -8,21 +8,22 @@ import (
 )
 
 type config struct {
-  Port uint `json:"port"`
+  Port          uint   `json:"port"`
+  CreaturesPath string `json:"creatures_path"`
 }
 
 type ShutdownFunc func(context.Context) error
 
 func Serve(configPath string) (error, <-chan error, ShutdownFunc) {
-  c, err := readConfig(configPath)
+  conf, err := readConfig(configPath)
   if err != nil {
     return err, nil, nil
   }
 
   server := http.Server{
-    Addr:        fmt.Sprintf(":%d", c.Port),
+    Addr:        fmt.Sprintf(":%d", conf.Port),
     ReadTimeout: time.Second * 10,
-    Handler:     makeAPIHandler(),
+    Handler:     makeAPIHandler(conf),
   }
 
   fatal := make(chan error, 1)
