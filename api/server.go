@@ -13,8 +13,8 @@ type config struct {
 
 type ShutdownFunc func(context.Context) error
 
-func Serve() (error, <-chan error, ShutdownFunc) {
-  c, err := readConfig("config.json")
+func Serve(configPath string) (error, <-chan error, ShutdownFunc) {
+  c, err := readConfig(configPath)
   if err != nil {
     return err, nil, nil
   }
