@@ -18,12 +18,6 @@ type creaturesAPIFunc func(w http.ResponseWriter, r *http.Request, c creatures, 
 func makeAPIHandler(conf config) http.Handler {
   r := chi.NewRouter()
 
-  r.Use(
-    middleware.RedirectSlashes,
-    middleware.Throttle(concurrentRequests),
-    middleware.Recoverer,
-  )
-
   ch := cors.New(cors.Options{
     AllowedOrigins:   []string{"*"},
     AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
@@ -32,7 +26,12 @@ func makeAPIHandler(conf config) http.Handler {
     MaxAge:           300,
   })
 
-  r.Use(ch.Handler)
+  r.Use(
+    middleware.RedirectSlashes,
+    middleware.Throttle(concurrentRequests),
+    middleware.Recoverer,
+    ch.Handler,
+  )
 
   r.Get("/random", mwCreatures(conf.CreaturesPath, randomAPI))
   r.Get("/search", mwCreatures(conf.CreaturesPath, searchAPI))
