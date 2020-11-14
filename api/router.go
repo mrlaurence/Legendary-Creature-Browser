@@ -1,15 +1,18 @@
 package api
 
 import (
-  "fmt"
   "github.com/go-chi/chi"
   "github.com/go-chi/chi/middleware"
   "net/http"
+  "net/url"
+  "strconv"
 )
 
 const concurrentRequests = 200
 
-func makeAPIHandler() http.Handler {
+type creaturesAPIFunc func(w http.ResponseWriter, r *http.Request, c creatures, n int, vs url.Values)
+
+func makeAPIHandler(conf config) http.Handler {
   r := chi.NewRouter()
 
   r.Use(
@@ -18,14 +21,32 @@ func makeAPIHandler() http.Handler {
     middleware.Recoverer,
   )
 
-  r.Get("/random", foo)
-  r.Get("/search", foo)
+  r.Get("/random", mwCreatures(conf.CreaturesPath, randomAPI))
+  r.Get("/search", mwCreatures(conf.CreaturesPath, searchAPI))
 
   return r
 }
 
-func foo(w http.ResponseWriter, r *http.Request) {
-  if _, err := fmt.Fprintf(w, "Hello world!"); err != nil {
-    panic(err)
+func mwCreatures(path string, f creaturesAPIFunc) http.HandlerFunc {
+  return func(w http.ResponseWriter, r *http.Request) {
+    c, err := readCreatures(path)
+    if err != nil {
+      panic(err)
+    }
+    vs := r.URL.Query()
+    nStr := vs.Get("n")
+    n, err := strconv.Atoi(nStr)
+    if err != nil {
+      panic(err)
+    }
+    f(w, r, c, n, vs)
   }
+}
+
+func randomAPI(w http.ResponseWriter, r *http.Request, c creatures, n int, vs url.Values) {
+
+}
+
+func searchAPI(w http.ResponseWriter, r *http.Request, c creatures, n int, vs url.Values) {
+
 }
