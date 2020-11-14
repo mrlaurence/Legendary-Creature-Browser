@@ -2,23 +2,61 @@ package api
 
 import "sort"
 
+type creaturesModel map[string]creatureModel
+
+type creatureModel struct {
+  Desc []string `json:"Description"`
+  Img  string   `json:"Img"`
+  Link string   `json:"Link"`
+}
+
 type creatures []creature
 
 type creature struct {
-  Name   string      `json:"Name"`
-  Desc   description `json:"Description"`
-  Img    string      `json:"Img"`
-  Source string      `json:"Source"`
+  name      token
+  desc      []token
+  img, link string
 }
 
-type description []string
+func (csm creaturesModel) parse() creatures {
+  cs := make(creatures, len(csm))
+  var i int
+  for name, cm := range csm {
+    cs[i] = creature{
+      desc: tokeniseSlice(cm.Desc),
+      img:  cm.Img,
+      link: cm.Link,
+    }
+    if nameTok, ok := tokeniseOne(name); ok {
+      cs[i].name = nameTok
+    }
+    i++
+  }
+  return cs
+}
+
+func (cs creatures) toModel() creaturesModel {
+  csm := make(creaturesModel)
+  for _, c := range cs {
+    desc := make([]string, len(c.desc))
+    for j, tagTok := range c.desc {
+      desc[j] = tagTok.full
+    }
+    csm[c.name.full] = creatureModel{
+      Desc: desc,
+      Img:  c.img,
+      Link: c.link,
+    }
+  }
+  return csm
+}
 
 func readCreatures(path string) (creatures, error) {
-  var cs creatures
+  var cs creaturesModel
   if err := readJSONFile(path, &cs); err != nil {
-    return creatures{}, err
+    return nil, err
   }
-  return cs, nil
+  return cs.parse(), nil
 }
 
 type match struct {
@@ -43,30 +81,24 @@ CLOOP:
       break
     }
 
-    nameTok, ok := tokeniseOne(c.Name)
-    if ok {
-      for _, t := range ts {
-        if t.eq(nameTok) {
-          nameMatches = append(nameMatches, c)
-          m++
-          continue CLOOP
-        }
+    for _, t := range ts {
+      if t.eq(c.name) {
+        nameMatches = append(nameMatches, c)
+        m++
+        continue CLOOP
       }
     }
 
     var nt int
-    for _, tag := range c.Desc {
-      tagTok, ok := tokeniseOne(tag)
-      if ok {
-        for _, t := range ts {
-          if t.eq(tagTok) {
-            nt++
-          }
+    for _, tag := range c.desc {
+      for _, t := range ts {
+        if t.eq(tag) {
+          nt++
         }
       }
     }
     if nt > 0 {
-      score := float64(nt) / float64(len(c.Desc))
+      score := float64(nt) / float64(len(c.desc))
       if score > s {
         tagMatches = append(tagMatches, match{
           c:     c,

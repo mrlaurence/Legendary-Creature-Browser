@@ -66,7 +66,7 @@ func searchAPI(w http.ResponseWriter, r *http.Request, c creatures, n int, vs ur
   } else if s > 1 {
     s = 1
   }
-  res := c.search(q, n, s)
+  res := c.search(q, n, s).toModel()
   if err := json.NewEncoder(w).Encode(res); err != nil {
     panic(err)
   }
