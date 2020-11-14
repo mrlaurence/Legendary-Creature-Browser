@@ -5,6 +5,7 @@ import (
   "fmt"
   "github.com/go-chi/chi"
   "github.com/go-chi/chi/middleware"
+  "github.com/go-chi/cors"
   "net/http"
   "net/url"
   "strconv"
@@ -22,6 +23,16 @@ func makeAPIHandler(conf config) http.Handler {
     middleware.Throttle(concurrentRequests),
     middleware.Recoverer,
   )
+
+  ch := cors.New(cors.Options{
+    AllowedOrigins:   []string{"*"},
+    AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
+    AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+    AllowCredentials: true,
+    MaxAge:           300,
+  })
+
+  r.Use(ch.Handler)
 
   r.Get("/random", mwCreatures(conf.CreaturesPath, randomAPI))
   r.Get("/search", mwCreatures(conf.CreaturesPath, searchAPI))
