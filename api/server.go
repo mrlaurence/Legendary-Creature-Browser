@@ -45,7 +45,3 @@ func readConfig(path string) (config, error) {
   }
   return c, nil
 }
-
-func makeAPIHandler() http.Handler {
-  panic("Not implemented")
-}
