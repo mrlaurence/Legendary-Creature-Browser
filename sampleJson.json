@@ -1,0 +1,4 @@
+creatures = {
+  {"Name": "Dragon", "Description" : {"Four-legged", "sexy", "fucked a donkey"}, "img" : "https://upload.wikimedia.org/wikipedia/commons/2/28/Bilibin_Alkonost.JPG%22%7D,
+  {"Name": "Ogre", "Description" : {"Shrek", "sexy", "fucked a donkey"}, "img" : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Ammit.svg/800px-Ammit.svg.png%22%7D
+}
