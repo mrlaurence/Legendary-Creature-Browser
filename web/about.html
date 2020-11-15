@@ -41,9 +41,40 @@
 
   <main role="main">
     <div class="container">
-      <div class="row justify-content-center" style="text-align:center; width:80%;margin:auto">
+      <div style="width:65%;margin:auto">
         <p>
-          This site was made for the Oxford Hackathon. Shrek approves I think.
+          This site was made in less than 36 hours by a team of 4 people for <a href="https://oxfordhack.co.uk/">Oxford Hack 2020</a>. You can check out the source code on <a href="https://github.com/mrlaurence/Legendary-Creature-Browser">GitHub</a>.
+        </p>
+        <p> The project forms a basic search engine. It consists of a few components:</p>
+        <ul>
+          <li>
+            <p>
+              We regularly retrieve the information on all the mythical creatures from Wikipedia using a <span style="font-weight:bold;">web scraper</span>, written by <span style="font-weight:bold;">Billy Harding</span> and <span
+                style="font-weight:bold;">James Horn</span> using PHP and Javascript.
+            </p>
+            <p>
+              The scraper looks at all relevant articles and extracts the creature's name, a list of describing adjectives (retrieved using natural language processing), its Wikipedia link and an image. We refer to the adjectives as "tags". It
+              compiles all this information into a JSON file.
+            </p>
+          </li>
+          <li>
+            <p>
+              The user interacts with the 'search engine' via this <span style="font-weight:bold;">website</span>, written by <span style="font-weight:bold;">Laurence Dhonau</span> using HTML, CSS and Javascript.</p>
+            <p>
+              The site allows the user to enter search terms and adjust the results of their search with 'maximum number of results' and 'sensitivity' options. It then makes a request to the API (see below) with this information. The API sends
+              creature data for the result of the search, which the website formats nicely and displays to the user.
+            </p>
+          </li>
+          <li>
+            <p>
+              The creatures are searched by the <span style="font-weight:bold;">API</span>, written by <span style="font-weight:bold;">Tom Panton</span> using Go.
+            </p>
+            <p>
+              The API receives the search query and deconstructs it into tags. It then finds the creature entries in the JSON file with the most matched tags but removes those which do not meet the sensitivity threshold set by the user. It then
+              returns the remaining entries, up to the maximum number of results specified by the user, to the website. The API can also find and return a specific amount of random entries.
+            </p>
+          </li>
+        </ul>
         </p>
       </div>
     </div>

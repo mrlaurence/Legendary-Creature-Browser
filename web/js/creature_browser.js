@@ -14,7 +14,7 @@ function runSearch() {
 
   var url = apiLinkBase + "/search?n=" + resultsNo + "&q=" + escape(searchTerms) + "&s=" + sensitivity * 100;
 
-  xmlHttp.open("GET", url, false); // false for synchronous request
+  xmlHttp.open("GET", url, false);
   xmlHttp.send(null);
   creatureData = xmlHttp.responseText;
 
@@ -60,7 +60,7 @@ function getRandom() {
 
   var url = apiLinkBase + "/random?n=" + resultsNo;
 
-  xmlHttp.open("GET", url, false); // false for synchronous request
+  xmlHttp.open("GET", url, false);
   xmlHttp.send(null);
   creatureData = xmlHttp.responseText;
 
