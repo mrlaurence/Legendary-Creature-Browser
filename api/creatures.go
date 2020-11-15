@@ -62,11 +62,6 @@ func readCreatures(path string) (creatures, error) {
   return cs.parse(), nil
 }
 
-type match struct {
-  c     creature
-  score float64
-}
-
 func (cs creatures) rand(n int) creatures {
   l := len(cs)
   if n > l {
@@ -90,6 +85,11 @@ func (cs creatures) rand(n int) creatures {
 }
 
 func (cs creatures) search(query string, n int, s float64) creatures {
+  type match struct {
+    c     creature
+    score float64
+  }
+
   ts := tokeniseQuery(query)
 
   if len(ts) == 0 {
