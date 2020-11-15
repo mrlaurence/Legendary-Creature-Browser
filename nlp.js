@@ -1,8 +1,6 @@
 function Analyse() {
     this.rS = [];
-    this.description = [];
     this.immediate = [];
-    this.stopwords = ['in','the', 'a','i','me','my','myself','we','our','ours','ourselves','you','your','yours','yourself','yourselves','he','him','his','himself','she','her','hers','herself','it','its','itself','they','them','their','theirs','themselves','what','which','who','whom','this','that','these','those','am','is','are','was','were','be','been','being','have','has','had','having','do','does','did','doing','a','an','the','and','but','if','or','because','as','until','while','of','at','by','for','with','about','against','between','into','through','during','before','after','above','below','to','from','up','down','in','out','on','off','over','under','again','further','then','once','here','there','when','where','why','how','all','any','both','each','few','more','most','other','some','such','no','nor','not','only','own','same','so','than','too','very','s','t','can','will','just','don','should','now']
     this.nlp;
 }
 
@@ -26,7 +24,7 @@ Analyse.prototype = {
     },
 
     //subject can be a header value(will help for context of sentences!)
-    sentences: function(input, subject="-") {
+    phrases: function(input, subject="-") {
         //extract text from wiki paragraph
         let text = input.replace(/[^A-Za-z.]+/gi, " ");
         let sentences = this.nlp(text).sentences().text().split(".");
@@ -115,5 +113,4 @@ Analyse.prototype = {
 }
 const a = new Analyse();
 a.init();
-const b = a.sentences("Arachne (/əˈrækniː/; from Ancient Greek: ᾰ̓ρᾰ́χνη, romanized: arákhnē, lit. 'spider', cognate with Latin araneus)[1] is the protagonist of a tale in Roman mythology known primarily from the version told by the Roman poet Ovid (43 BCE–17 CE), which is the earliest extant source for the story.[2] In Book Six of his epic poem Metamorphoses, Ovid recounts how the talented mortal Arachne, daughter of Idmon, challenged Athena, goddess of wisdom and crafts, to a weaving contest. When Athena could find no flaws in the tapestry Arachne had woven for the contest, the goddess became enraged and beat the girl with her shuttle. After Arachne hanged herself out of shame, she was transformed into a spider. The myth both provides an aetiology of spiders' web-spinning abilities and is a cautionary tale warning mortals not to place themselves on an equal level with the gods.");
-console.log(b)
+const b = a.phrases("");
