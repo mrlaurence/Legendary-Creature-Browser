@@ -42,7 +42,7 @@ Analyse.prototype = {
 
         //get sentences in context
         let tags = this.nlp(text).tag().out('tags');
-       
+
         var pronouns = [subject];
         var tagDoc = [];
         for (var x= 0; x < tags.length; x++) {
@@ -72,7 +72,7 @@ Analyse.prototype = {
         tagDoc = this.removeRepeats(tagDoc);
         tagDoc = tagDoc.join(" ");
         pronouns = this.removeRepeats(pronouns);
-      
+
         let matches = [];
         sentences.forEach(function (val) {
             val = val.toLowerCase();
@@ -83,14 +83,14 @@ Analyse.prototype = {
             }
         });
         matches = this.removeRepeats(matches);
-      
+
         var results = [];
         for (m in matches) {
-            let bigramDict = this.nlp(matches[m]).bigrams(); 
+            let bigramDict = this.nlp(matches[m]).bigrams();
              for (bi in bigramDict) {
                 results.push(this.nlp(tagDoc).lookup(bigramDict[bi].normal).out('array'));
              }
-            
+
         }
         return this.removeRepeats((this.processArrays(results) + "," + this.immediate).split(","));
 
@@ -111,7 +111,29 @@ Analyse.prototype = {
         return uniqueList;
     },
 }
-const a = new Analyse();
-a.init();
-const b = a.phrases("Arachne (/əˈrækniː/; from Ancient Greek: ᾰ̓ρᾰ́χνη, romanized: arákhnē, lit. 'spider', cognate with Latin araneus)[1] is the protagonist of a tale in Roman mythology known primarily from the version told by the Roman poet Ovid (43 BCE–17 CE), which is the earliest extant source for the story.[2] In Book Six of his epic poem Metamorphoses, Ovid recounts how the talented mortal Arachne, daughter of Idmon, challenged Athena, goddess of wisdom and crafts, to a weaving contest. When Athena could find no flaws in the tapestry Arachne had woven for the contest, the goddess became enraged and beat the girl with her shuttle. After Arachne hanged herself out of shame, she was transformed into a spider. The myth both provides an aetiology of spiders' web-spinning abilities and is a cautionary tale warning mortals not to place themselves on an equal level with the gods.");
-console.log(b)
+
+var fs = require('fs');
+let raw = fs.readFileSync("scrape.json");
+let results = JSON.parse(raw);
+
+
+var counter = 0;
+while(counter < results.length){
+  console.log(counter + " / " + results.length);
+  let d = results[counter][Object.keys(results[counter])[0]]["Description"];
+  d = d.replace(/(<([^>]+)>)/ig,"");
+  let a = new Analyse();
+  a.init();
+  let b = a.phrases(d);
+  results[counter][Object.keys(results[counter])[0]]["Description"] = b;
+  counter++;
+}
+
+let data = JSON.stringify(results);
+fs.writeFile("./clean.json", data, err =>{
+  if(err){
+    console.log("Error",err);
+  }else{
+    console.log("done");
+  }
+})
