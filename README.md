@@ -1,3 +1,9 @@
-We're going on an adventure!
+# legendarycreatures.tech
 
-![TG](tg.png)
+Mythical creature scraper & search engine for Oxford Hack 2020  
+
+## Authors
+- Billy Harding
+- James Horn
+- Laurence Dhonau
+- Tom Panton
