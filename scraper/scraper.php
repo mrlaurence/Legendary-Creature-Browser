@@ -65,7 +65,7 @@
   function scrapeItem($url){
     global $baseUrl, $scrapeInfo;
     $source = $baseUrl.$url;
-    if(strpos($url, "List_of")!==false || strpos($url, "mythology")!==false ||  strpos($url, "redlink=1")!==false || strpos($url, "wiktionary")!==false){
+    if(strpos($url, "List_of")!==false || strpos($url, "mythology")!==false ||  strpos($url, "redlink=1")!==false || strpos($url, "wiktionary")!==false || strpos($url, "#")!==false){
       return;
     }
     logMessage("Scraping item at ".$source."...");
@@ -92,7 +92,7 @@
     }
     $description = ["Shrek", "Fucked", "Donkey"];
     logMessage("Pushing to scrapeInfo...\n");
-    array_push($scrapeInfo,array($name => array("Description"=>$description, "Img"=>$img, "Source"=>$source)));
+    array_push($scrapeInfo,array($name => array("Description"=>$description, "Img"=>$img, "Link"=>$source)));
 
   }
 
