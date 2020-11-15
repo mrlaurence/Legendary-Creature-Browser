@@ -75,11 +75,15 @@ func (cs creatures) rand(n int) creatures {
   if n == 0 {
     return nil
   }
+  cp := make(creatures, l)
+  for i, c := range cs {
+    cp[i] = c
+  }
   rs := make(creatures, n)
   for i := 0; i < n; i++ {
     j := rand.Intn(l)
-    rs[i] = cs[j]
-    cs[j] = cs[l-1]
+    rs[i] = cp[j]
+    cp[j] = cp[l-1]
     l--
   }
   return rs
