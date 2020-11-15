@@ -18,8 +18,6 @@ function runSearch() {
   xmlHttp.send(null);
   creatureData = xmlHttp.responseText;
 
-  //var creatureData = '{"Dragon":{"Description":["Four-legged","sexy","fucked a donkey"],"Img":"https://upload.wikimedia.org/wikipedia/commons/2/28/Bilibin_Alkonost.JPG","Link":"https://wikipedia.org/blah"},"Ogre":{"Description":["Shrek","sexy","fucked a donkey"],"Img":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Ammit.svg/800px-Ammit.svg.png","Link":"https://wikipedia.org/blah"}}';
-
   var creaturesObject = JSON.parse(creatureData);
 
   var caroInner = document.getElementById("carousel-inner");
@@ -65,8 +63,6 @@ function getRandom() {
   xmlHttp.open("GET", url, false); // false for synchronous request
   xmlHttp.send(null);
   creatureData = xmlHttp.responseText;
-
-  //var creatureData = '{"Dragon":{"Description":["Four-legged","sexy","fucked a donkey"],"Img":"https://upload.wikimedia.org/wikipedia/commons/2/28/Bilibin_Alkonost.JPG","Link":"https://wikipedia.org/blah"},"Ogre":{"Description":["Shrek","sexy","fucked a donkey"],"Img":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Ammit.svg/800px-Ammit.svg.png","Link":"https://wikipedia.org/blah"}}';
 
   var creaturesObject = JSON.parse(creatureData);
 

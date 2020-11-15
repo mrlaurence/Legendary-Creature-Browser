@@ -14,7 +14,7 @@
   <title>Legendary Creature Browser</title>
 </head>
 
-<body>
+<body onload="getRandom();">
   <header>
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -42,57 +42,13 @@
   <main role="main">
     <div class="container">
       <div class="row justify-content-center" style="text-align:center; width:80%;margin:auto">
-        <p>Hi! This little site lets you browse the vast collection of legendary creatures. Enter some search terms below and we'll find matching monsters.</p>
+        <p>Hi! This little site lets you browse the vast collection of legendary creatures. Enter some search terms below and we'll find matching monsters. Here's some random ones to get you started.</p>
       </div>
 
       <div class="row justify-content-center" style="margin-top:10px;">
 
         <div id="carousel" class="carousel slide" data-ride="carousel">
           <div id="carousel-inner" class="carousel-inner">
-            <div class="carousel-item active">
-
-              <div class="creature-div">
-                <h1>Dragon</h1>
-                <div class="creature-col">
-                  <p>Tags: large, serpentine, legendary, winged, horned, four-legged, breathes fire, sexy</p>
-                  <p>Wikipedia page: <a href="https://en.wikipedia.org/wiki/Dragon">Dragon</a></p>
-                </div>
-                <div class="creature-col">
-                  <img src="dragon.jpg" />
-                </div>
-              </div>
-
-            </div>
-
-            <div class="carousel-item">
-              <div class="creature-div">
-                <h1>Shrek</h1>
-                <div class="creature-col">
-                  <p>
-                    Tags: large, serpentine, legendary, winged, horned, four-legged, breathes fire, sexy
-                  </p>
-                  <p>Wikipedia page: <a href="https://en.wikipedia.org/wiki/Dragon">Shrek</a></p>
-                </div>
-                <div class="creature-col">
-                  <img src="shrek.jpg" />
-                </div>
-              </div>
-            </div>
-
-            <div class="carousel-item">
-              <div class="creature-div">
-                <h1>Fuck Knows</h1>
-                <div class="creature-col">
-                  <p>
-                    Tags: large, serpentine, legendary, winged, horned, four-legged, breathes fire, sexy
-                  </p>
-                  <p>Wikipedia page: <a href="https://en.wikipedia.org/wiki/Dragon">Fuck Knows</a></p>
-                </div>
-                <div class="creature-col">
-                  <img src="question.png" />
-                </div>
-              </div>
-            </div>
           </div>
 
           <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
