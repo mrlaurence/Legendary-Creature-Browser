@@ -26,11 +26,11 @@ func (csm creaturesModel) parse() creatures {
   var i int
   for name, cm := range csm {
     cs[i] = creature{
-      desc: tokeniseSlice(cm.Desc),
+      desc: tokeniseSlice(cm.Desc, true),
       img:  cm.Img,
       link: cm.Link,
     }
-    if nameTok, ok := tokeniseOne(name); ok {
+    if nameTok, ok := tokeniseOne(name, true); ok {
       cs[i].name = nameTok
     }
     i++
