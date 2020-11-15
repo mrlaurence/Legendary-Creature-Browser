@@ -1,0 +1,44 @@
+.carousel-control-prev-icon {
+background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-next-icon {
+background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+
+.creature-div {
+  border: 1px solid #ced4da;
+  width:80%;
+  margin:auto;
+  border-radius: 4px;
+  padding:10px;
+}
+
+button {
+  margin-top:30px;
+  width:49%;
+  display:inline-block;
+}
+
+.carousel {
+  width:100%;
+}
+
+.creature-col {
+  display:inline-block !important;
+  width:49% !important;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  max-height: 400px;
+}
+
+p {
+  font-size: 20px;
+}
+
+h1 {
+  margin-left:30px;
+}
